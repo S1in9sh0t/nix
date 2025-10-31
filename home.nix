@@ -1,14 +1,42 @@
 { config, pkgs, ... }:
-
 {
+  home.stateVersion = "25.05";
+  
   home.username = "benzo";
   home.homeDirectory = "/home/benzo";
-  programs.git.enable = true;
-  home.stateVersion = "25.05";
-  programs.bash = {
+
+  programs.home-manager.enable = true;
+
+  wayland.windowManager.hyprland = {
     enable = true;
-    shellAliases = {
-      btw = "echo i use nixos, btw";
-    };
+    extraConfig = ''
+      $mod = SUPER
+      
+      bind = $mod, Return, exec, ghostty
+      bind = $mod, Q, killactive
+      bind = $mod, M, exit
+      bind = $mod, F, fullscreen
+      bind = $mod, Space, togglefloating
+      
+      bind = $mod, left, movefocus, l
+      bind = $mod, right, movefocus, r
+      bind = $mod, up, movefocus, u
+      bind = $mod, down, movefocus, d
+      
+      bind = $mod, 1, workspace, 1
+      bind = $mod, 2, workspace, 2
+      bind = $mod, 3, workspace, 3
+      bind = $mod, 4, workspace, 4
+      bind = $mod, 5, workspace, 5
+      
+      bind = $mod SHIFT, 1, movetoworkspace, 1
+      bind = $mod SHIFT, 2, movetoworkspace, 2
+      bind = $mod SHIFT, 3, movetoworkspace, 3
+      bind = $mod SHIFT, 4, movetoworkspace, 4
+      bind = $mod SHIFT, 5, movetoworkspace, 5
+      
+      bindm = $mod, mouse:272, movewindow
+      bindm = $mod, mouse:273, resizewindow
+    '';
   };
 }
