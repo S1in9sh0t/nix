@@ -1,5 +1,1 @@
-nixos-install --flake /mnt/etc/nixos#nixos-bc
 
-## type your password
-nixos-enter --root /mnt -c 'passwd tony'
-reboot
