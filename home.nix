@@ -23,7 +23,7 @@
       bind = $mod, Q, killactive
       bind = $mod SHIFT, M, exit
       bind = $mod, F, fullscreen
-      bind = $mod, Space, togglefloating
+      bind = $mod, D, togglefloating
       
       # Focus movement
       bind = $mod, left, movefocus, l
@@ -50,7 +50,7 @@
       bindm = $mod, mouse:273, resizewindow
       
       # DMS keybinds
-      bind = $mod, D, exec, dms ipc call spotlight toggle
+      bind = $mod, Space, exec, dms ipc call spotlight toggle
       bind = $mod, V, exec, dms ipc call clipboard toggle
       bind = $mod, N, exec, dms ipc call notifications toggle
       bind = $mod, comma, exec, dms ipc call settings toggle
