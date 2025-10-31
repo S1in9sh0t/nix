@@ -1,27 +1,25 @@
 {
-  description = "NixOS from Scratch";
+  description = "NixOS configuration with Home Manager";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations.nixos-bc = nixpkgs.lib.nixosSystem {
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
+  {
+    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
         home-manager.nixosModules.home-manager
         {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.benzo = import ./home.nix;
-            backupFileExtension = "backup";
-          };
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.benzo = import ./home.nix;
         }
       ];
     };
