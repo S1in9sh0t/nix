@@ -1,14 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos";
@@ -17,7 +15,6 @@
   time.timeZone = "Europe/London";
 
   i18n.defaultLocale = "en_GB.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_GB.UTF-8";
     LC_IDENTIFICATION = "en_GB.UTF-8";
@@ -39,10 +36,11 @@
     isNormalUser = true;
     description = "Ben";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      
-    ];
+    packages = with pkgs; [];
   };
+
+  # Enable Hyprland (required for DMS)
+  programs.hyprland.enable = true;
 
   # Wayland login manager for Hyprland/DMS
   services.greetd = {
@@ -58,6 +56,12 @@
       };
     };
   };
+
+  # Allow unfree packages (DMS may need some)
+  nixpkgs.config.allowUnfree = true;
+
+  # Enable flakes
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   system.stateVersion = "25.05";
 }
